@@ -6,12 +6,19 @@
 package MatrizForma2;
 
 /**
- *
+ *Clase que crea una matriz forma 2
  * @author jfwc1
  */
 public class MatrizForma2 {
     private NodoDoble mat;
 
+    /**
+     * constructor de la clase matriz
+     * se le ingresan dos pareametros que
+     * representan las dimenciones de la matriz
+     * @param m numero de filas
+     * @param n numero decolumnas
+     */
     public MatrizForma2(int m,int n) {
         Tripleta tx,t = new Tripleta(m,n,null);
         mat = new NodoDoble(t);
@@ -22,23 +29,53 @@ public class MatrizForma2 {
         mat.setLd(x);
     }
     
+    /**
+     * metodo que retorna el nodo cabeza,
+     * que es el primer nodo de la lista,
+     * que representa la matriz
+     * @return nodocabeza
+     */
     public NodoDoble nodoCabeza(){
         return mat.getLd();
     }
     
+    /**
+     * metodo que retorna mat que es el primer
+     * nodo de la matriz
+     * @return mat
+     */
     public NodoDoble primerNodo(){
         return mat;
     }
     
+    /**
+     * metodo que retorna true si la matriz esta vacia
+     * o false si la matriz no esta vacia
+     * @return true o false 
+     */
     public boolean esVacia(){
         NodoDoble p = mat.getLd();
         return (p.getLi()== p && p.getLd()== p);
     }
     
+    
+    /**
+     * metodo que retorna true si el nodo que
+     * se le pasa como parametro esta en el final
+     * del recorrido
+     * @param p
+     * @return true o false
+     */
     public boolean finDeRecorrido(NodoDoble p){
         return p==this.nodoCabeza();
     }
     
+    /**
+     * metodo que ingresa un nuevo nodo en la matriz
+     * conectandolo por fila, ubicandolo en la fila
+     * correspondiente
+     * @param x 
+     */
     public void conectarPorFilas(NodoDoble x){
         NodoDoble p,q,anterior;
         Tripleta tq,tx;
@@ -63,6 +100,12 @@ public class MatrizForma2 {
         
     }
     
+    /**
+     * metodo que ingresa un nuevo nodo en la matriz
+     * conectandolo por columna, ubicandolo en la columna
+     * correspondiente
+     * @param x 
+     */
     public void conectarPorColumnas(NodoDoble x){
         NodoDoble p,q,anterior;
         Tripleta tq,tx;
@@ -87,6 +130,11 @@ public class MatrizForma2 {
         
     }
     
+    /**
+     * metodo que recorre la matriz mostrando
+     * en consola los valores almacenados en la
+     * matriz
+     */
     public void muestraMatriz(){
         int qf,qc,qv;
         NodoDoble q;
