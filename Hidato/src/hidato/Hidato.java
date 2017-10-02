@@ -5,6 +5,8 @@
  */
 package hidato;
 
+import MatrizForma2.MatrizForma2;
+import manejoArchivos.Archivo;
 
 /**
  *
@@ -18,18 +20,23 @@ public class Hidato {
     public static void main(String[] args) {
         // TODO code application logic here
         
-//        asi se crea una matriz forma 2
-//        public MatrizForma2 crear(){
-//        MatrizForma2 a;
-//        a = new MatrizForma2(m,n);
-//        Tripleta t = new Tripleta(fila,columna,valor);
-//        NodoDoble n= new NodoDoble(t);
-//        a.conectarPorFilas(n);
-//        a.conectarPorColumnas(n);
-//    }
-        
-        
-        
+        MatrizForma2 triz = null; //=new MatrizForma2(5,5);
+//        
+//        triz.insertar(1, 1, 2);
+//        triz.insertar(1, 2, 4);
+//        triz.insertar(2, 1, 6);
+//        triz.insertar(3, 1, 1);
+//        triz.insertar(2, 3, 7);
+//        
+//        
+        Archivo ar = new Archivo();
+//        ar.crearArchivo();
+//        triz.guardar(ar); 
+        ar.leerArchivo(triz);
     }
+   
     
 }
+
+ 
+    

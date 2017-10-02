@@ -5,6 +5,8 @@
  */
 package MatrizForma2;
 
+import manejoArchivos.Archivo;
+
 /**
  *Clase que crea una matriz forma 2
  * @author jfwc1
@@ -143,7 +145,7 @@ public class MatrizForma2 {
         while (!this.finDeRecorrido(q)) {
             tq = (Tripleta)q.getDato();
             qf = tq.getFila();
-            qc = tq.getColumna();
+            qc = tq.getColumna();            
             qv = (int)tq.getValor();
             System.out.println(qf+" "+qc+" "+qv);
             q = q.getLd();
@@ -624,4 +626,62 @@ public class MatrizForma2 {
 
        return a;
     }
+     
+     public void insertar(int f,int c,int d){
+        Tripleta t = new Tripleta(f,c,d);
+        NodoDoble n= new NodoDoble(t);
+        this.conectarPorFilas(n);
+        this.conectarPorColumnas(n);
+    }
+    
+    public void guardar(Archivo arch){
+        int qf,qc,qv;
+        NodoDoble q;
+        Tripleta tq;
+        String st[]=new String[this.getFila()];
+        q = this.nodoCabeza().getLd();
+        for (int i = 1; i <= this.getFila(); i++) {
+            st[i-1]="";
+            for (int j = 1; j <= this.getColumna(); j++) {
+                
+                tq = (Tripleta)q.getDato();
+                qf = tq.getFila();
+                qc = tq.getColumna();
+                
+                if (i==qf&&j==qc) {
+                    if (!this.finDeRecorrido(q)) {
+                       qv = (int)tq.getValor();
+                        st[i-1]=st[i-1]+(Integer.toString(qv));
+                        
+                        System.out.println(qf+" "+qc+" "+qv);
+                        q = q.getLd();
+                        
+                    }
+                } else {
+                    st[i-1]=st[i-1]+"*";
+                }
+            }//fin for j
+           
+            
+        }
+        arch.escribirArchivo(st);
+        
+    }
+    
+   public  void crear(String str[]){
+       int f,c;
+       char v;
+       int con=0;
+       for (int i = 0; i < this.getFila(); i++) {
+           
+           for (int j = 0; j < this.getColumna(); j++) {
+                
+               v= str[i].charAt(j);   
+               if (v!='*'){
+                   con=Integer.parseInt(""+v);
+                  this.insertar(i+1, j+1, con);
+               }//fin if
+           }//fin for
+       }//fin for
+   }//fin crear
 }
