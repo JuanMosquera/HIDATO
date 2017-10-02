@@ -627,6 +627,12 @@ public class MatrizForma2 {
        return a;
     }
      
+     /**
+      * Inserta un nuevo nodo o dato a la matriz
+      * @param f //fila
+      * @param c //columna
+      * @param d //dato
+      */
      public void insertar(int f,int c,int d){
         Tripleta t = new Tripleta(f,c,d);
         NodoDoble n= new NodoDoble(t);
@@ -668,6 +674,12 @@ public class MatrizForma2 {
         
     }
     
+    /**
+     * crea una matriz forma 2 a partir de txt
+     * recibe como parametro un vector de String[]
+     * que contiene las filas de la matriz
+     * @param str 
+     */
    public  void crear(String str[]){
        int f,c;
        char v;

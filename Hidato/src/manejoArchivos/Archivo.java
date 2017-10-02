@@ -69,7 +69,11 @@ public class Archivo {
     
     
     
-   
+   /**
+    * Lee un archivo txt a partir del cual llena
+    * una matriz forma 2 la cual se le pasa como parametro
+    * @param matrix 
+    */
     public void leerArchivo(MatrizForma2 matrix){
         try {
             FileReader entrada= new FileReader("./archivosTextos/partida.txt");
@@ -94,14 +98,10 @@ public class Archivo {
             matrix.crear(part);
             matrix.muestraMatriz();
             
-            
-            
-            
             entrada.close();
             bw.close();
         } catch (Exception ex) {
-            Logger.getLogger(Archivo.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("no se encontro archivo");
+            System.out.println("No se encontro archivo");
         }
       
     }
