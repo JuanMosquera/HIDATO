@@ -22,7 +22,7 @@ public class Archivo {
     /**
      * crea el archivo de txt donde se guardara la session del juego
      */
-    public void crearArchivo(){
+    public void crearArchivo(){//podria crear un nuevo archivo para guardar si paso un string como parametro
         try {
             archivo=new File(".\\archivosTextos","partida.txt");
             
@@ -96,7 +96,7 @@ public class Archivo {
             
             matrix = new MatrizForma2(m,n);
             matrix.crear(part);
-            matrix.muestraMatriz();
+//            matrix.muestraMatriz();
             
             entrada.close();
             bw.close();

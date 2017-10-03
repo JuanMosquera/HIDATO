@@ -696,4 +696,24 @@ public class MatrizForma2 {
            }//fin for
        }//fin for
    }//fin crear
+   
+   
+   /**
+    * Este metodo inserta en la matriz forma 2 los valores que se usaran como pistas para
+    * el tablero de hidato, recibe 3 vectores
+    * @param v1 las posiciones en las filas
+    * @param v2 las posiciones en las columnas 
+    * @param v3 los datos que se usaran como pistas
+    */
+   public void crearHidato(int v1[],int v2[],int v3[]){
+       
+       for (int i = 0; i < v3.length; i++) {
+          
+            this.insertar(v1[i], v2[i], v3[i]);
+              
+       }//fin for
+   }
+   
+   
+   
 }
