@@ -152,6 +152,41 @@ public class MatrizForma2 {
         }
     }
     
+    public void mostrarMatrizNormal(){
+        int qf,qc,qv,i,j,f,c;
+        NodoDoble q;
+        Tripleta tq;
+        
+        q=this.primerNodo();
+        tq=(Tripleta) q.getDato();
+        f = tq.getFila();
+        c = tq.getColumna();   
+        
+        q = this.nodoCabeza().getLd();
+        
+        for ( i = 1; i <= f; i++) {
+            for ( j = 1; j <= c; j++) {
+                
+                tq = (Tripleta)q.getDato();
+                qf = tq.getFila();
+                qc = tq.getColumna();            
+                
+                if (i==qf && j==qc && !this.finDeRecorrido(q)) {
+                    qv = (int)tq.getValor();
+                    System.out.print(qv+"  ");
+                    q = q.getLd();
+                } else {
+                    System.out.print(0+"  ");
+                }
+                if (j==c) {
+                    System.out.println("");
+                }
+            }
+        }
+    }
+    
+    
+    
     public int getFila(){
         Tripleta t = (Tripleta)this.primerNodo().getDato();
         return t.getFila();
@@ -635,11 +670,73 @@ public class MatrizForma2 {
       */
      public void insertar(int f,int c,int d){
         Tripleta t = new Tripleta(f,c,d);
-        NodoDoble n= new NodoDoble(t);
-        this.conectarPorFilas(n);
-        this.conectarPorColumnas(n);
+        NodoDoble n= new NodoDoble(t); 
+         if (this.yaExiste(n)) {
+             System.out.println("ya existe");
+             this.reemplace(n);
+         } else {
+            this.conectarPorFilas(n);
+            this.conectarPorColumnas(n);
+         }
+        
+         
+        
     }
+     
+     public void reemplace(NodoDoble x){
+         NodoDoble p,q,resul;
+        Tripleta tq,tx;
+        int i;
+        tx = (Tripleta)x.getDato();
+        p = this.nodoCabeza();
+        
+        q = p.getLd();
+        tq = (Tripleta)q.getDato();
+        while (q!=p && tq.getFila()<= tx.getFila()) {
+
+            q = q.getLd();
+            tq = (Tripleta)q.getDato();
+            if (tq.getColumna()==tx.getColumna()&&tq.getFila()==tx.getFila()) {
+                tq.setValor(tx.getValor());
+            }
+        }
+     }
+     
+     
+     
+     public boolean yaExiste(NodoDoble x){
+        NodoDoble p,q;
+        Tripleta tq,tx;
+        int i;
+        tx = (Tripleta)x.getDato();
+        p = this.nodoCabeza();
+        
+        q = p.getLd();
+        tq = (Tripleta)q.getDato();
+        while (q!=p && tq.getFila()<= tx.getFila()) {
+
+            if (tq.getColumna()==tx.getColumna()&&tq.getFila()==tx.getFila()) {
+                return true;
+            }
+            q = q.getLd();
+            tq = (Tripleta)q.getDato();
+        }
+        return false;
+//        while (q!=p && tq.getFila()== tx.getFila()&& tq.getColumna()<tx.getColumna()) {
+//            anterior = q;
+//            q = q.getLd();
+//            tq = (Tripleta)q.getDato();
+//        }
+
+     }
+     
+     
     
+     /**
+      * Este metodo recibe un objecto de la clase archivo a partir del cual genera
+      * la matriz forma 2, que corresponde a la que se habia guardado en el archivo txt
+      * @param arch 
+      */
     public void guardar(Archivo arch){
         int qf,qc,qv;
         NodoDoble q;
@@ -708,7 +805,7 @@ public class MatrizForma2 {
    public void crearHidato(int v1[],int v2[],int v3[]){
        
        for (int i = 0; i < v3.length; i++) {
-          
+           System.out.println(v1[i]+" "+v2[i]+" "+v3[i]);
             this.insertar(v1[i], v2[i], v3[i]);
               
        }//fin for

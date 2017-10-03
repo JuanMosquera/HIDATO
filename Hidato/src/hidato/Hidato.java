@@ -72,11 +72,13 @@ public class Hidato {
 //        Archivo ar2 = new Archivo();
 //        ar2.crearArchivo();
 //        triz2.guardar(ar2); 
-          MatrizForma2 trix =new MatrizForma2(5,5);
+          MatrizForma2 trix =new MatrizForma2(5,6);
           GeneradorHidato hola=new GeneradorHidato();
-          hola.generar(trix, 1);
+          hola.generar(trix, 2);
           System.out.println("aqui va la matriz");
           trix.muestraMatriz();
+          System.out.println("la otra");
+          trix.mostrarMatrizNormal();
 
     }
    

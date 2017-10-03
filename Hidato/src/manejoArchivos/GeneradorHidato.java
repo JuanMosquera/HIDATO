@@ -31,12 +31,15 @@ import java.util.concurrent.ThreadLocalRandom;
           switch (dificulta) {
               case 1:
                   difil=(hidato.getFila()*hidato.getColumna())/2;
+                  System.out.println(difil);
                   break;
               case 2:
                   difil=(hidato.getFila()*hidato.getColumna())/4;
+                  System.out.println(difil);
                   break;
               case 3:
-                  difil=(hidato.getFila()*hidato.getColumna())/6;
+                  difil=(hidato.getFila()*hidato.getColumna())/8;
+                  System.out.println(difil);
                   break;
               
           }
