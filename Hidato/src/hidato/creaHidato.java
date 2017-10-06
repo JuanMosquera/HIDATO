@@ -5,6 +5,9 @@
  */
 package hidato;
 
+import MatrizForma2.MatrizForma2;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  *
  * @author jfwc1
@@ -15,8 +18,11 @@ public class creaHidato {
     int n;
     boolean termina= false;
 
+    /**
+     * constructor de la clase
+     */
     public creaHidato() {
-        n=8;
+        n=5;
         matriz =new int[n][n];
         mov[1][1]= -1;
         mov[1][2]= 0;
@@ -46,7 +52,91 @@ public class creaHidato {
         
     }
     
-  
+      /**
+       * Este metodo me genera la matriz forma 2 que representa el hidato 
+       * con un numero de pistas dependiento de la dificultad 
+       * @param ma//matriz forma 2 donde se generara el hidato
+       * @param dificulta 
+       */
+      public void generarH(MatrizForma2 ma, int dificulta){
+           int difil=0,v[],tamaño,aux[],a;
+          tamaño=ma.getFila()*ma.getColumna();
+          switch (dificulta) {
+              case 1:
+                  difil=(ma.getFila()*ma.getColumna())/2;
+                  System.out.println(difil);
+                  break;
+              case 2:
+                  difil=(ma.getFila()*ma.getColumna())/4;
+                  System.out.println(difil);
+                  break;
+              case 3:
+                  difil=(ma.getFila()*ma.getColumna())/8;
+                  System.out.println(difil);
+                  break;    
+          }
+          
+          aux=new int[tamaño];
+          v=new int[difil];
+          v[0]=1;
+          v[1]=tamaño;
+          
+          for (int i = 0; i < tamaño; i++) {
+              aux[i]=0;
+          }
+          aux[0]=1;
+          aux[tamaño-1]=tamaño;
+          for (int i = 2; i < v.length; i++) {
+              a = ThreadLocalRandom.current().nextInt(1, tamaño + 1);
+              if (aux[a-1]==0) {
+                  aux[a-1]=a;
+                  v[i]=a;
+              } else {
+                  i--;
+              }
+          }
+          System.out.println("la matriz");
+          for (int i = 0; i < v.length; i++) {
+              System.out.print(" "+v[i]);
+              
+          }
+          System.out.println("");
+          for (int i = 0; i < v.length; i++) {
+              
+              this.buscarInsertar( ma, v[i]);
+              
+          }
+          
+          
+      }
+      
+      /**
+       * Este metodo busca en la matriz un dato especificado del cual se obtendra 
+       * su fila y su columna para ingresarlo en la matriz forma 2
+       * @param m//matriz forma 2
+       * @param v //dato que se va a buscar en la matriz
+       */
+      public void buscarInsertar(MatrizForma2 m, int v){
+          
+          for (int i = 0; i < m.getFila(); i++) {
+              for (int j = 0; j < m.getColumna(); j++) {
+                  if (matriz[i][j]==v) {
+                      System.out.println((i+1)+" "+(j+1)+" "+v);
+                      m.insertar(i+1, j+1, v);
+                      return;
+                  }
+              }
+          }
+      }
+      
+      
+      /**
+       * Este metodo genera un hidato dentro de una matriz ya creada,
+       * a partir de una posicion indicada
+       * @param i//se utiliza para identificar  el orden con el cual se visitan las casillas de la matriz
+       * @param x1//posicion en fila
+       * @param y1 //posicion en columna
+       */
       public void gHidato(int i, int x1,int y1){
           
          
@@ -73,6 +163,14 @@ public class creaHidato {
           
        }
       
+      /**
+       * Metodo que recibe dos enteros que representan una posicion en una matriz
+       * y determina si en dicha posicion es igual a cero (osea esta libre) o es
+       * distinta de cero (osea ya estan uso ocupada con otro valor)
+       * @param x3//posicion fila
+       * @param y3//posicion columna
+       * @return //me retorna true si en esa posicion hay un cero o false de lo contrario
+       */
       public boolean esValido(int x3,int y3){
           if ((x3>=0 && x3<n) && y3>=0 && y3<n && matriz[x3][y3]==0) {
               
@@ -81,6 +179,9 @@ public class creaHidato {
           
           return false;
       }
+      /**
+       * Metodo que muestra la matriz que contiene el hidato
+       */
       public void mostrar(){
           for (int i = 0; i < n; i++) {
               for (int j = 0; j < n; j++) {
