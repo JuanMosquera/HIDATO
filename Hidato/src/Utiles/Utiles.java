@@ -1,11 +1,7 @@
-/*  Class Utiles:
-    Descripcion: Proporciona operaciones utiles para el tratamiento de Objetos.
-    Autor: alex.catarineu
-    Colaboradores: miguel.angel.vico
-    Revisado: 20/12/2009 15:02 */
-
 package Utiles;
-
+/**
+ * @author Mario
+ */
 public class Utiles {
 
     /* Retorna un array de enteros que es copia de 'array' */

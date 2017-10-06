@@ -1,14 +1,12 @@
-/*  Class Cronometro:
-    Descripcion: Implementa un cronometro con su respectiva vista.
-    Autor: daniel.camarasa
-    Revisado: 21/12/2009 06:33 */
-
 package Vistas;
 
 import Utiles.Utiles;
 import javax.swing.JLabel;
-
-public class Cronometro extends JLabel implements Runnable {
+/**
+ * @author Mario
+ */
+public class Cronometro extends JLabel implements Runnable 
+{
 
     private int segundos;
     private Thread miThread;

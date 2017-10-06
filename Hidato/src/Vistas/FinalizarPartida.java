@@ -1,11 +1,6 @@
-/*  Class FinalizarPartida;
-    Descripcion: Vista para la ventana de dialogo mostrada al finalizar una partida.
-    Autor: daniel.camarasa
-    Revisado: 20/12/2009 20:28 */
-
 package Vistas;
 
-import Utiles.Files;
+import Utiles.Archivos;
 import Utiles.Utiles;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,7 +16,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
-
+/**
+ * @author Mario
+ */
 public class FinalizarPartida extends JDialog {
 
     private final static String RESUELTO = "winner.png";
@@ -53,12 +50,15 @@ public class FinalizarPartida extends JDialog {
     private int puntuacion;
     private int tiempo;
     private int numPistas;
+    private int posicionRanking;
+    private boolean resueltoUsuario; /* indica si lo ha resuelto el usuario */
     private boolean resueltoPrimeraVez; /* indica si se ha resuelto por primera vez */
 
     /* PRE: - */
-    public FinalizarPartida(int puntuacion, int tiempo, int num_pistas) {
+    public FinalizarPartida(int puntuacion, int tiempo, int num_pistas,
+      boolean resueltoUsuario, boolean resueltoPrimero) {
 
-        initComponents(puntuacion, tiempo, num_pistas);
+        initComponents(puntuacion, tiempo, num_pistas, resueltoUsuario, resueltoPrimero);
         setMyLayout();
     }
     /* POST: Crea una instancia de FinalizarPartida */
@@ -66,11 +66,11 @@ public class FinalizarPartida extends JDialog {
     /* PRE: - */
     public void mostrar() {
 
-        if (!resueltoPrimeraVez) {
+        if (!resueltoUsuario || !resueltoPrimeraVez) {
             labelValorPuntuacion.setText("0");
-            muestraLabels(true, true, false, false);
+            muestraLabels(true, true, false, false, !resueltoUsuario);
         }
-        else muestraLabels(true, true, true, true);
+        else muestraLabels(true, true, true, true, true);
 
         setVisible(true);
     }
@@ -94,7 +94,13 @@ public class FinalizarPartida extends JDialog {
     /* PRE: - */
     private String configura() {
 
-        if (!resueltoPrimeraVez) {
+        if (!resueltoUsuario) {
+            titulo = NO_RESUELTO_TITULO1;
+            titulo2 = NO_RESUELTO_TITULO2;
+            colorear(new Color(204, 0, 0));
+            return NO_RESUELTO;
+        }
+        else if (!resueltoPrimeraVez) {
             titulo = YA_RESUELTO_TITULO;
             colorear(new Color(204, 0, 0));
             return NO_RESUELTO;
@@ -113,7 +119,7 @@ public class FinalizarPartida extends JDialog {
 
     /* PRE: - */
     private void muestraLabels(boolean puntuacion, boolean tiempo, boolean posicion,
-      boolean num_pistas) {
+      boolean num_pistas, boolean mostrarSegundoTitulo) {
 
         labelPuntuacion.setVisible(puntuacion);
         labelValorPuntuacion.setVisible(puntuacion);
@@ -123,6 +129,7 @@ public class FinalizarPartida extends JDialog {
         labelValorPosicion.setVisible(posicion);
         labelNumeroPistas.setVisible(num_pistas);
         labelValorNumeroPistas.setVisible(num_pistas);
+        labelTitulo2.setVisible(mostrarSegundoTitulo);
     }
     /* POST: Muestra las etiquetas del panel segun el booleano que le corresponda */
 
@@ -133,12 +140,14 @@ public class FinalizarPartida extends JDialog {
         labelTitulo2.setText(titulo2);
         labelValorPuntuacion.setText(Integer.toString(puntuacion));
         labelValorTiempo.setText(Utiles.segundosToTiempo(tiempo));
+        labelValorPosicion.setText(Integer.toString(posicionRanking));
         labelValorNumeroPistas.setText(Integer.toString(numPistas));
     }
     /* POST: Establece los valores en las etiquetas del panel de la ventana */
 
     /* PRE: - */
-    private void initComponents(int puntuacion, int tiempo, int num_pistas) {
+    private void initComponents(int puntuacion, int tiempo, int num_pistas,
+      boolean resueltoUsuario, boolean resueltoPrimero) {
 
         labelTitulo = new JLabel();
         labelTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -191,6 +200,8 @@ public class FinalizarPartida extends JDialog {
         this.puntuacion = puntuacion;
         this.tiempo = tiempo;
         this.numPistas = num_pistas;
+        this.resueltoUsuario = resueltoUsuario;
+        this.resueltoPrimeraVez = resueltoPrimero;
 
         fondo = new Fondo(configura(), ANCHO_FONDO, ALTO_FONDO);
 
@@ -320,7 +331,7 @@ public class FinalizarPartida extends JDialog {
         public void paintComponent(Graphics g) {
 
             Dimension size = getSize();
-            ImageIcon fondo = new ImageIcon(Files.getPath() + "/Vistas/Imagenes/" +
+            ImageIcon fondo = new ImageIcon(Archivos.getPath() + "/Vistas/Imagenes/" +
               imagenFondo);
 
             g.drawImage(fondo.getImage(), 0, 0, size.width, size.height, null);

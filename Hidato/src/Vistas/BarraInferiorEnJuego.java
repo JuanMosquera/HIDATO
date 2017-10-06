@@ -1,116 +1,115 @@
-/*  Class BarraInferiorEnJuego:
-    Descripcion: Vista para la barra inferior de acciones del panel principal del modo
-        jugando.
-    Autor: miguel.angel.vico
-    Revisado: 20/12/2009 19:26 */
-
 package Vistas;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 import javax.swing.border.BevelBorder;
-
+/**
+ * @author Mario
+ */
 public class BarraInferiorEnJuego extends JPanel {
 
-    private int zoom;
-    private JButton botonMasZoom;
-    private JButton botonMenosZoom;
-    private BarraCasillas barraCasillas;
+    private JButton botonIniciar;
+    private JLabel labelTiempo;
+    private Cronometro cronometro;
 
     /* PRE: - */
-    public BarraInferiorEnJuego(BarraCasillas barraCasillas) {
+    public BarraInferiorEnJuego() {
 
-        initComponents(barraCasillas);
+        initComponents();
         setMyLayout();
     }
-    /* POST: Crea una instancia de BarraInferiorEnJuego */
+    /* POST: Crea una instancia de BarraSuperiorEnJuego */
 
     /* PRE: - */
-    private void initComponents(BarraCasillas barra) {
+    public void iniciarTiempo() {
 
-        zoom = 100;
+        cronometro.iniciar();
+    }
+    /* POST: Inicia/continua la contabilizacion de tiempo por parte del cronometro */
 
-        botonMasZoom = new JButton();
-        botonMasZoom.setText("Zoom ( + )");
-        botonMasZoom.setToolTipText("Ampliar");
-        botonMasZoom.addActionListener(new ActionListener() {
+    /* PRE: - */
+    public void pararTiempo() {
+
+        cronometro.parar();
+    }
+    /* POST: Para la contabilizacion de tiempo por parte del cronometro */
+
+    /* PRE: - */
+    public int obtenerTiempo() {
+
+        return cronometro.obtenerTiempo();
+    }
+    /* POST: Retorna el tiempo actual que marca el cronometro */
+
+    /* PRE: - */
+    public void setTiempo(int tiempo) {
+
+        cronometro.setTiempo(tiempo);
+    }
+    /* POST: Establece el tiempo del cronometro en 'tiempo' segundos */
+
+    /* PRE: - */
+    private void initComponents() {
+
+        botonIniciar = new JButton();
+        botonIniciar.setText("Iniciar partida");
+        botonIniciar.setToolTipText("Iniciar la partida");
+        botonIniciar.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
 
-                zoom += 10;
-                barraCasillas.redimensionaTablero(zoom);
-                if (zoom >= 300) botonMasZoom.setEnabled(false);
-                if (zoom > 30) botonMenosZoom.setEnabled(true);
+                botonIniciar.setEnabled(false);
+                iniciarTiempo();
             }
         });
 
-        botonMenosZoom = new JButton();
-        botonMenosZoom.setText("Zoom ( - )");
-        botonMenosZoom.setToolTipText("Reducir");
-        botonMenosZoom.addActionListener(new ActionListener() {
+        labelTiempo = new JLabel();
+        labelTiempo.setText("Tiempo de partida:");
 
-            public void actionPerformed(ActionEvent e) {
-
-                zoom -= 10;
-                barraCasillas.redimensionaTablero(zoom);
-                if (zoom <= 30) botonMenosZoom.setEnabled(false);
-                if (zoom < 300) botonMasZoom.setEnabled(true);
-            }
-        });
-
-        this.barraCasillas = barra;
+        cronometro = new Cronometro();
+        cronometro.setFont(new Font("Arial", Font.BOLD, 16));
 
         setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
     }
     /* POST: Crea e inicializa correctamente todos los componentes y variables usadas por
-        la barra inferior */
+        la barra superior */
 
     /* PRE: - */
     private void setMyLayout() {
 
         GroupLayout layout = new GroupLayout(this);
-
+        
         setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(botonMasZoom)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(botonMenosZoom, GroupLayout.PREFERRED_SIZE,
-                  GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 99,
+                .addComponent(botonIniciar)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 29,
                   Short.MAX_VALUE)
-                .addComponent(barraCasillas, GroupLayout.PREFERRED_SIZE,
-                  barraCasillas.obtenerAnchura(), GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addComponent(labelTiempo)
+                .addGap(33, 33, 33)
+                .addComponent(cronometro)
+                .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(52 - barraCasillas.obtenerAltura(),
-                          52 - barraCasillas.obtenerAltura())
-                        .addComponent(barraCasillas, GroupLayout.PREFERRED_SIZE,
-                          barraCasillas.obtenerAltura(),
-                          GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup
-                          (GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonMasZoom)
-                            .addComponent(botonMenosZoom, GroupLayout.PREFERRED_SIZE,
-                              GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(52 - barraCasillas.obtenerAltura(),
-                  52 - barraCasillas.obtenerAltura()))
+            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(cronometro)
+                    .addComponent(botonIniciar)
+                    .addComponent(labelTiempo))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }
     /* POST: Establece la localizacion y los tama(ny)os de los componentes dentro de la
-        barra inferior */
+        barra superior */
 }
