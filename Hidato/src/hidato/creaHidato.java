@@ -15,15 +15,17 @@ import java.util.concurrent.ThreadLocalRandom;
 public class creaHidato {
     int[][] mov=new int[5][3];
     int matriz[][];
-    int n;
+    int m,n;
     boolean termina= false;
 
     /**
      * constructor de la clase
      */
-    public creaHidato() {
-        n=5;
-        matriz =new int[n][n];
+    public creaHidato(MatrizForma2 ma) {
+        m=ma.getFila();
+        n=ma.getColumna();
+        matriz =new int[m][n];
+        
         mov[1][1]= -1;
         mov[1][2]= 0;
         mov[2][1]= 0;
@@ -59,6 +61,9 @@ public class creaHidato {
        * @param dificulta 
        */
       public void generarH(MatrizForma2 ma, int dificulta){
+        
+        
+          
            int difil=0,v[],tamaño,aux[],a;
           tamaño=ma.getFila()*ma.getColumna();
           switch (dificulta) {
@@ -148,7 +153,7 @@ public class creaHidato {
               y2=y1+mov[k][2];
               if (esValido(x2,y2)) {
                   matriz[x2][y2]=i;
-                  if (i<(n)*(n)) {
+                  if (i<(m)*(n)) {
                       gHidato(i+1,x2,y2);
                        if (!termina) {
                           matriz[x2][y2]=0;
@@ -172,7 +177,7 @@ public class creaHidato {
        * @return //me retorna true si en esa posicion hay un cero o false de lo contrario
        */
       public boolean esValido(int x3,int y3){
-          if ((x3>=0 && x3<n) && y3>=0 && y3<n && matriz[x3][y3]==0) {
+          if ((x3>=0 && x3<m) && y3>=0 && y3<n && matriz[x3][y3]==0) {
               
               return true;
           }
@@ -183,7 +188,7 @@ public class creaHidato {
        * Metodo que muestra la matriz que contiene el hidato
        */
       public void mostrar(){
-          for (int i = 0; i < n; i++) {
+          for (int i = 0; i < m; i++) {
               for (int j = 0; j < n; j++) {
                   System.out.print("-"+matriz[i][j]+"-");
               }
