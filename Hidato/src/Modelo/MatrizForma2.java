@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package MatrizForma2;
+package Modelo;
 
-import manejoArchivos.Archivo;
-
+import Utiles.Archivo;
 /**
  *Clase que crea una matriz forma 2
  * @author jfwc1

@@ -57,6 +57,22 @@ public class PanelInicio extends JPanel
         String alturaStr = fieldAltura.getText().trim();
         int anchura;
         int altura;
+        int dificultad;
+        
+        if(radioFacil.isSelected()==true)
+        {
+            dificultad = 1;
+        }
+        else if(radioMedio.isSelected()==true)
+        {
+            dificultad = 2;
+        }
+        else
+        {
+            dificultad = 3;
+        }
+        
+        System.out.println(dificultad);
 
         labelMensajes.setText("");
 
@@ -86,7 +102,7 @@ public class PanelInicio extends JPanel
             }
             else 
             {
-                Controlador.obtenerInstancia().iniciarPartida(altura, anchura);
+                Controlador.obtenerInstancia().iniciarPartida(altura, anchura, dificultad);
             }
         }
     }

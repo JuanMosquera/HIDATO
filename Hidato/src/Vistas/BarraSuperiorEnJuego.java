@@ -1,5 +1,6 @@
 package Vistas;
 
+import Controlador.Controlador;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,14 +14,14 @@ import javax.swing.border.BevelBorder;
 /**
  * @author Mario
  */
-public class BarraInferiorEnJuego extends JPanel {
+public class BarraSuperiorEnJuego extends JPanel {
 
     private JButton botonIniciar;
     private JLabel labelTiempo;
     private Cronometro cronometro;
 
     /* PRE: - */
-    public BarraInferiorEnJuego() {
+    public BarraSuperiorEnJuego() {
 
         initComponents();
         setMyLayout();
@@ -67,6 +68,7 @@ public class BarraInferiorEnJuego extends JPanel {
 
                 botonIniciar.setEnabled(false);
                 iniciarTiempo();
+                Controlador.obtenerInstancia().habilitarCampos();
             }
         });
 

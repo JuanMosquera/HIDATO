@@ -49,12 +49,18 @@ public class Controlador
      * Inicia el juego de hidato
      * @param altura Se designa la altura que tendra el tablero de hidato
      * @param anchura Se designa la anchura que tendra el tablero de hidato
+     * @param dificultad Se designa la dificultad del Hidato
      */
-    public void iniciarPartida(int altura, int anchura)
+    public void iniciarPartida(int altura, int anchura, int dificultad)
     {
-        tablero = new Tablero(altura, anchura);
+        tablero = new Tablero(altura, anchura, dificultad);
         panelJuego = new PanelJuego(tablero);
         ventanaPrincipal.setPanel(panelJuego);
+    }
+    
+    public void habilitarCampos()
+    {
+        tablero.habilitarCampos();
     }
    
 }

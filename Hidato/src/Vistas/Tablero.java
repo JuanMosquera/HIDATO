@@ -1,5 +1,10 @@
 package Vistas;
 
+import Modelo.MatrizForma2;
+import Modelo.NodoDoble;
+import Modelo.Tripleta;
+import Modelo.creaHidato;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -15,14 +20,22 @@ public class Tablero extends JPanel
     private int alto;
     private int ancho;
     ArrayList<JTextField> tableroHidatoJugable;
+    private final MatrizForma2 matrizTablero;
+    private final creaHidato generadorHidato;
 
     /**
      * Constructor de la clase tablero
      * @param alto Define el alto del tablero de hidato
      * @param ancho Define el ancho del tablero de hidato
+     * @param dificultad Define la dificultad del hidato
      */
-    public Tablero(int alto, int ancho)
+    public Tablero(int alto, int ancho, int dificultad)
     {
+        matrizTablero = new MatrizForma2(alto, ancho);
+        generadorHidato = new creaHidato(matrizTablero);
+        generadorHidato.gHidato(1, 1, 0);
+        generadorHidato.generarH(matrizTablero, dificultad);
+        matrizTablero.mostrarMatrizNormal();
         initComponents(alto, ancho);
     }
     
@@ -40,14 +53,14 @@ public class Tablero extends JPanel
     	panelTablero.removeAll();
     	tableroHidatoJugable.clear();
     	panelTablero.setLayout(new GridLayout(alto,ancho));
-    	int alturaCasilla = 25;
-        int anchoCasilla = 25;
+    	int alturaCasilla = 35;
+        int anchoCasilla = 35;
         Font fuenteCasilla = new Font("SansSerif", Font.BOLD, 20);
         //Inicializa cada casilla del tablero
         for(int i=0;i<(alto*ancho);i++)
         {
             JTextField casilla = new JTextField();
-            casilla.setName("field"+(i+1));
+            casilla.setName("campo"+(i+1));
             casilla.setPreferredSize(new Dimension(alturaCasilla,anchoCasilla));
             casilla.setFont(fuenteCasilla);
             casilla.setHorizontalAlignment(JTextField.CENTER);
@@ -56,12 +69,52 @@ public class Tablero extends JPanel
             tableroHidatoJugable.add(casilla);
          }
         //Anade cada casilla al tablero
-        for(JTextField field:tableroHidatoJugable)
+        for(JTextField campo:tableroHidatoJugable)
         {
-            panelTablero.add(field);
+            panelTablero.add(campo);
+        }
+        int qf, qc, qv, posicion;
+        Tripleta tq;
+        NodoDoble q = matrizTablero.nodoCabeza().getLd();        
+        while(!matrizTablero.finDeRecorrido(q))
+        {
+            System.out.println(q.getDato());
+            tq = (Tripleta)q.getDato();
+            qf = tq.getColumna();
+            qc = tq.getFila();
+            qv = (int)tq.getValor();
+            posicion = convertir(qf,qc);
+            if(qv==1)
+            {
+ 
+                tableroHidatoJugable.get(posicion).setCaretColor(Color.red);
+                tableroHidatoJugable.get(posicion).setText(String.valueOf(qv));
+            }
+            else if(q.getLd()==null)
+            {
+                tableroHidatoJugable.get(posicion).setCaretColor(Color.red);
+                tableroHidatoJugable.get(posicion).setText(String.valueOf(qv));
+            }
+            else
+            {
+                tableroHidatoJugable.get(posicion).setText(String.valueOf(qv));
+            }
+            q = q.getLd();
         }
         panelTablero.revalidate();
         panelTablero.repaint();
+    }
+    
+    public void habilitarCampos()
+    {
+        for(int i=0;i<(alto*ancho);i++)
+        {
+            String contenido = tableroHidatoJugable.get(i).getText();
+            if("".equals(contenido))
+            {
+                tableroHidatoJugable.get(i).setEnabled(true);
+            }
+         }        
     }
 
     /**
@@ -78,7 +131,17 @@ public class Tablero extends JPanel
         createGrid(this, tableroHidatoJugable);
     }
     
-    
-
-    
+    private int convertir(int fila, int columna)
+    {
+        int resultado;
+        if(fila>1)
+        {
+            resultado = ((fila-1)*10)+columna;
+        }
+        else
+        {
+            resultado = fila+columna;
+        }
+        return resultado;
+    }
 }

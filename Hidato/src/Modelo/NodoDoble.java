@@ -1,21 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package MatrizForma2;
-
+package Modelo;
 /**
  *
  * @author jfwc1
  */
-public class NodoDoble {
-    
+public class NodoDoble 
+{    
     private Object dato;
     private NodoDoble li;
     private NodoDoble ld;
 
-    public NodoDoble() {
+    public NodoDoble() 
+    {
         dato = null;
         li = null;
         ld = null;

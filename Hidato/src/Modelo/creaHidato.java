@@ -1,27 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package hidato;
+package Modelo;
 
-import MatrizForma2.MatrizForma2;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
  * @author jfwc1
  */
-public class creaHidato {
+public class creaHidato 
+{
     int[][] mov=new int[5][3];
     int matriz[][];
     int m,n;
     boolean termina= false;
-
     /**
      * constructor de la clase
+     * @param ma
      */
-    public creaHidato(MatrizForma2 ma) {
+    public creaHidato(MatrizForma2 ma) 
+    {
         m=ma.getFila();
         n=ma.getColumna();
         matriz =new int[m][n];
@@ -34,24 +30,6 @@ public class creaHidato {
         mov[3][2]= 0;
         mov[4][1]= 0;
         mov[4][2]= -1;
-        
-//        mov[1][1]=-1;
-//        mov[2][1]= -1;
-//        mov[3][1]= 0;
-//        mov[4][1]= +1;
-//        mov[5][1]= +1;
-//        mov[6][1]= +1;
-//        mov[7][1]= 0;
-//        mov[8][1]= -1;
-//        mov[1][2]= 0;
-//        mov[2][2]= +1;
-//        mov[3][2]= +1;
-//        mov[4][2]= +1;
-//        mov[5][2]= 0;
-//        mov[6][2]= -1;
-//        mov[7][2]= -1;
-//        mov[8][2]= -1;
-        
     }
     
       /**
@@ -60,32 +38,26 @@ public class creaHidato {
        * @param ma//matriz forma 2 donde se generara el hidato
        * @param dificulta 
        */
-      public void generarH(MatrizForma2 ma, int dificulta){
-        
-        
-          
-           int difil=0,v[],tamaño,aux[],a;
+      public void generarH(MatrizForma2 ma, int dificulta)
+      {
+          int difil=0,v[],tamaño,aux[],a;
           tamaño=ma.getFila()*ma.getColumna();
-          switch (dificulta) {
+          switch (dificulta) 
+          {
               case 1:
                   difil=(ma.getFila()*ma.getColumna())/2;
-                  System.out.println(difil);
                   break;
               case 2:
                   difil=(ma.getFila()*ma.getColumna())/4;
-                  System.out.println(difil);
                   break;
               case 3:
                   difil=(ma.getFila()*ma.getColumna())/8;
-                  System.out.println(difil);
                   break;    
-          }
-          
+          }          
           aux=new int[tamaño];
           v=new int[difil];
           v[0]=1;
-          v[1]=tamaño;
-          
+          v[1]=tamaño;          
           for (int i = 0; i < tamaño; i++) {
               aux[i]=0;
           }
@@ -96,23 +68,16 @@ public class creaHidato {
               if (aux[a-1]==0) {
                   aux[a-1]=a;
                   v[i]=a;
-              } else {
+              } 
+              else
+              {
                   i--;
               }
           }
-          System.out.println("la matriz");
-          for (int i = 0; i < v.length; i++) {
-              System.out.print(" "+v[i]);
-              
-          }
-          System.out.println("");
-          for (int i = 0; i < v.length; i++) {
-              
-              this.buscarInsertar( ma, v[i]);
-              
-          }
-          
-          
+          for (int i = 0; i < v.length; i++) 
+          {              
+              this.buscarInsertar( ma, v[i]);              
+          }         
       }
       
       /**
@@ -126,9 +91,7 @@ public class creaHidato {
           for (int i = 0; i < m.getFila(); i++) {
               for (int j = 0; j < m.getColumna(); j++) {
                   if (matriz[i][j]==v) {
-                      System.out.println((i+1)+" "+(j+1)+" "+v);
                       m.insertar(i+1, j+1, v);
-                      return;
                   }
               }
           }
@@ -142,9 +105,8 @@ public class creaHidato {
        * @param x1//posicion en fila
        * @param y1 //posicion en columna
        */
-      public void gHidato(int i, int x1,int y1){
-          
-         
+      public void gHidato(int i, int x1,int y1)
+      {      
           int k, x2,y2,p,q;
           k=0;
           do {
@@ -164,8 +126,7 @@ public class creaHidato {
                   }
               }
               
-          } while (k<4 &&!termina);
-          
+          } while (k<4 &&!termina);          
        }
       
       /**
@@ -176,12 +137,12 @@ public class creaHidato {
        * @param y3//posicion columna
        * @return //me retorna true si en esa posicion hay un cero o false de lo contrario
        */
-      public boolean esValido(int x3,int y3){
-          if ((x3>=0 && x3<m) && y3>=0 && y3<n && matriz[x3][y3]==0) {
-              
+      public boolean esValido(int x3,int y3)
+      {
+          if ((x3>=0 && x3<m) && y3>=0 && y3<n && matriz[x3][y3]==0) 
+          {              
               return true;
-          }
-          
+          }          
           return false;
       }
       /**

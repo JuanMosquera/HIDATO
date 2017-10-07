@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package manejoArchivos;
+package Utiles;
 
 
-import MatrizForma2.MatrizForma2;
+import Modelo.MatrizForma2;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

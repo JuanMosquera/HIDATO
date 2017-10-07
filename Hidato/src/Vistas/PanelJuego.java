@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class PanelJuego extends JPanel
 {
     private Tablero tablero;
-    private BarraInferiorEnJuego barraSuperior;
+    private BarraSuperiorEnJuego barraSuperior;
     private ContenedorTablero contenedor;
     
     /**
@@ -53,7 +53,7 @@ public class PanelJuego extends JPanel
      */
     private void initComponents(Tablero tablero)
     {        
-        barraSuperior = new BarraInferiorEnJuego();
+        barraSuperior = new BarraSuperiorEnJuego();
         barraSuperior.setVisible(true);
         
         this.tablero = tablero;
