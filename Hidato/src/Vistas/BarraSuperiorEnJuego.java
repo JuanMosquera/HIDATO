@@ -17,6 +17,7 @@ import javax.swing.border.BevelBorder;
 public class BarraSuperiorEnJuego extends JPanel {
 
     private JButton botonIniciar;
+    private JButton botonGuardarTablero;
     private JLabel labelTiempo;
     private Cronometro cronometro;
 
@@ -69,6 +70,17 @@ public class BarraSuperiorEnJuego extends JPanel {
                 botonIniciar.setEnabled(false);
                 iniciarTiempo();
                 Controlador.obtenerInstancia().habilitarCampos();
+            }
+        });
+        
+        botonGuardarTablero = new JButton();
+        botonGuardarTablero.setText("Iniciar partida");
+        botonGuardarTablero.setToolTipText("Iniciar la partida");
+        botonGuardarTablero.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) 
+            {
+                
             }
         });
 

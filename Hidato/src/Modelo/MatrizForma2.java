@@ -172,6 +172,46 @@ public class MatrizForma2 {
         }
     }
     
+    public int[] pasarAVector(){
+        int qf,qc,qv,i,j,f,c;
+        NodoDoble q;
+        Tripleta tq;
+        
+        q=this.primerNodo();
+        tq=(Tripleta) q.getDato();
+        f = tq.getFila();
+        c = tq.getColumna();   
+        
+        q = this.nodoCabeza().getLd();
+        
+        int vector[] = new int[f*c];
+        int contador = 0;
+                
+        for ( i = 1; i <= f; i++) {
+            for ( j = 1; j <= c; j++) {
+                
+                tq = (Tripleta)q.getDato();
+                qf = tq.getFila();
+                qc = tq.getColumna();                            
+                if (i==qf && j==qc && !this.finDeRecorrido(q)) {
+                    qv = (int)tq.getValor();
+                    vector[contador] = qv;
+                    q = q.getLd();
+                } 
+                else 
+                {
+                    vector[contador] = 0;
+                }
+                if (j==c) 
+                {
+                    System.out.println("");
+                }
+                contador = contador+1;
+            }
+        }
+        return vector;
+    }
+    
     public void mostrarMatrizNormal(){
         int qf,qc,qv,i,j,f,c;
         NodoDoble q;

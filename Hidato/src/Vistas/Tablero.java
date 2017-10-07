@@ -1,10 +1,7 @@
 package Vistas;
 
 import Modelo.MatrizForma2;
-import Modelo.NodoDoble;
-import Modelo.Tripleta;
 import Modelo.creaHidato;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -19,7 +16,7 @@ public class Tablero extends JPanel
 {
     private int alto;
     private int ancho;
-    ArrayList<JTextField> tableroHidatoJugable;
+    private ArrayList<JTextField> tableroHidatoJugable;
     private final MatrizForma2 matrizTablero;
     private final creaHidato generadorHidato;
 
@@ -35,7 +32,6 @@ public class Tablero extends JPanel
         generadorHidato = new creaHidato(matrizTablero);
         generadorHidato.gHidato(1, 1, 0);
         generadorHidato.generarH(matrizTablero, dificultad);
-        matrizTablero.mostrarMatrizNormal();
         initComponents(alto, ancho);
     }
     
@@ -51,6 +47,7 @@ public class Tablero extends JPanel
     private void createGrid(JPanel panelTablero,ArrayList<JTextField> tableroHidatoJugable)
     {
     	panelTablero.removeAll();
+        int vector[] = matrizTablero.pasarAVector();
     	tableroHidatoJugable.clear();
     	panelTablero.setLayout(new GridLayout(alto,ancho));
     	int alturaCasilla = 35;
@@ -59,11 +56,15 @@ public class Tablero extends JPanel
         //Inicializa cada casilla del tablero
         for(int i=0;i<(alto*ancho);i++)
         {
-            JTextField casilla = new JTextField();
+            JTextField casilla = new JTextField();            
             casilla.setName("campo"+(i+1));
             casilla.setPreferredSize(new Dimension(alturaCasilla,anchoCasilla));
             casilla.setFont(fuenteCasilla);
             casilla.setHorizontalAlignment(JTextField.CENTER);
+            if(vector[i]!=0)
+            {
+                casilla.setText(String.valueOf(vector[i]));
+            }
             casilla.setEnabled(false);/*En primera instancia las casilla no se
                 pueden editar*/
             tableroHidatoJugable.add(casilla);
@@ -73,38 +74,13 @@ public class Tablero extends JPanel
         {
             panelTablero.add(campo);
         }
-        int qf, qc, qv, posicion;
-        Tripleta tq;
-        NodoDoble q = matrizTablero.nodoCabeza().getLd();        
-        while(!matrizTablero.finDeRecorrido(q))
-        {
-            System.out.println(q.getDato());
-            tq = (Tripleta)q.getDato();
-            qf = tq.getColumna();
-            qc = tq.getFila();
-            qv = (int)tq.getValor();
-            posicion = convertir(qf,qc);
-            if(qv==1)
-            {
- 
-                tableroHidatoJugable.get(posicion).setCaretColor(Color.red);
-                tableroHidatoJugable.get(posicion).setText(String.valueOf(qv));
-            }
-            else if(q.getLd()==null)
-            {
-                tableroHidatoJugable.get(posicion).setCaretColor(Color.red);
-                tableroHidatoJugable.get(posicion).setText(String.valueOf(qv));
-            }
-            else
-            {
-                tableroHidatoJugable.get(posicion).setText(String.valueOf(qv));
-            }
-            q = q.getLd();
-        }
         panelTablero.revalidate();
         panelTablero.repaint();
     }
     
+    /**
+     * Habilita la edicion d elos campos que conforman el tablero de hidato
+     */
     public void habilitarCampos()
     {
         for(int i=0;i<(alto*ancho);i++)
@@ -129,19 +105,5 @@ public class Tablero extends JPanel
         tableroHidatoJugable = new ArrayList<JTextField>();        
         setLayout(new GridLayout(alto, ancho));
         createGrid(this, tableroHidatoJugable);
-    }
-    
-    private int convertir(int fila, int columna)
-    {
-        int resultado;
-        if(fila>1)
-        {
-            resultado = ((fila-1)*10)+columna;
-        }
-        else
-        {
-            resultado = fila+columna;
-        }
-        return resultado;
     }
 }
