@@ -152,6 +152,32 @@ public class MatrizForma2 {
         }
     }
     
+    public void imprimir(){
+        int qf,qc,qv,result=0;
+        NodoDoble q;
+        Tripleta tq;
+        q = this.nodoCabeza().getLd();
+        while (!this.finDeRecorrido(q)) {
+            tq = (Tripleta)q.getDato();
+            qf = tq.getFila();
+            qc = tq.getColumna();            
+            qv = (int)tq.getValor();
+            if (qf>1) {
+                result=((qf-1)*10)+qc;
+                //qv tiene el dato 
+                //aqui iria el codigo que imprime en la ventana 
+                //que no se como seria
+            } else {
+                result=qf+qc;
+                //qv tiene el dato 
+                //aqui iria el codigo que imprime en la ventana 
+                //que no se como seria
+            }
+            
+            q = q.getLd();
+        }
+    }
+    
     public void mostrarMatrizNormal(){
         int qf,qc,qv,i,j,f,c;
         NodoDoble q;

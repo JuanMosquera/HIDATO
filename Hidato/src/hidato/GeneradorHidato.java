@@ -97,7 +97,7 @@ import java.util.concurrent.ThreadLocalRandom;
       
       /**
        * Este metodo retorna las posiciones que se usaran para ingresar los datos 
-       * en la matriz de hidato
+       *  aleatorios en la matriz de hidato
        * @param m//numer de filas y/o columnas de la matriz
        * @param longitud//tamaño de la matriz
        * @return 
